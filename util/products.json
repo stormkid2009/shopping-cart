@@ -1,0 +1,22 @@
+{
+    "books":[
+        {
+            "name":"book1",
+            "description":"description1",
+            "price":20,
+            "quantity":1
+        },
+        {
+            "name":"book2",
+            "description":"description2",
+            "price":25,
+            "quantity":1
+        },
+        {
+            "name":"book3",
+            "description":"description3",
+            "price":30,
+            "quantity":1
+        }
+    ]
+}
