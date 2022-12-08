@@ -2,6 +2,12 @@ import React from 'react'
 import { IProduct } from '../../types';
 import { useAppDispatch } from '../../store/hooks';
 import { removeFromCart } from '../../store/features/cartSlice';
+import AddBtn from '../btns/addBtn';
+import SubtractBtn from '../btns/subtractBtn';
+import Checkout from '../btns/checkout';
+import Remove from '../btns/remove';
+
+
 
 interface CartItemProps {
   book:IProduct
@@ -10,7 +16,9 @@ interface CartItemProps {
 
 function CartItem({book}:CartItemProps) {
   const dispatch = useAppDispatch();
-  
+  const removeItemHandler=()=>{
+    dispatch(removeFromCart(book))
+  }
   return (
     <div className='flex flex-row justify-between m-3 p-2 border-2 border-slate-600 rounded'>
       <div className='p-3 m-2'>{book.name}</div>
@@ -19,18 +27,18 @@ function CartItem({book}:CartItemProps) {
           <span className=''>Quantity:</span>
         </div>
         <div className='flex flex-col items-center'>
-        <button className='bg-black text-white p-2'>+</button>
+        <AddBtn />
         <span className='border-2 border-slate-600 rounded-full p-2' >{book.quantity}</span>
-        <button className='bg-black text-white p-2'>-</button>
+        <SubtractBtn />
         </div>
       </div>
       <div className='p-3 m-2'>Price: {book.price} $</div>
+      <div className='p-3 m-2'><span>Total: {book.price * book.quantity}</span></div>
       <div>
-        <button className='bg-red-700 rounded-md p-2 m-2' onClick={()=>dispatch(removeFromCart(book))}
-        >Remove</button>
+        <Remove handler={removeItemHandler}/>
       </div>
       <div>
-        <button className='bg-blue-700 rounded-md p-2 m-2'>Checkout</button>
+        <Checkout />
       </div>
     </div>
   )
