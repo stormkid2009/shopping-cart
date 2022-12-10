@@ -7,7 +7,7 @@ import SubQtyBtn from '../btns/subQtyBtn';
 import Checkout from '../btns/checkout';
 import Remove from '../btns/remove';
 
-
+//declare interface for our props object
 
 interface CartItemProps {
   book:IProduct
@@ -15,16 +15,17 @@ interface CartItemProps {
 
 
 function CartItem({book}:CartItemProps) {
+  //assign global useAppDispatch to local var;
   const dispatch = useAppDispatch();
-
+  //define handler function to remove item from products array;
   const removeItemHandler=()=>{
     dispatch(removeFromCart(book))
   }
-
+  //define handler function to increase quantity of certain item
   const increaseQuantityHandler = ()=>{
     dispatch(incrementQuantity(book))
   }
-  
+  //define handler function to decrease quantity of certain item
   const decrementQuantityHandler=()=>{
     dispatch(decrementQuantity(book))
   }
