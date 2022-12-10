@@ -34,10 +34,35 @@ const cartSlice = createSlice({
         removeFromCart:(state,action:PayloadAction<IProduct>)=>{
             state.products = state.products.filter((item)=> item.name != action.payload.name)
         },
+        incrementQuantity:(state,action:PayloadAction<IProduct>)=>{
+            //we will increase the quantity of this item
+            let newItem = action.payload;
+            newItem ={...newItem,quantity:newItem.quantity + 1};
+            //console.log(newItem);
+            const index = state.products.findIndex((item)=> item.name === action.payload.name);
+            if(index > -1){
+                state.products.splice(index,1,newItem);
+                //console.log(state.products)
+            }
+        },
+        decrementQuantity:(state,action:PayloadAction<IProduct>)=>{
+            //we will decrease the quantity of this item
+            let newItem = action.payload;
+            if(newItem.quantity<=1){
+                return;
+            }
+            newItem ={...newItem,quantity:newItem.quantity - 1};
+            //console.log(newItem);
+            const index = state.products.findIndex((item)=> item.name === action.payload.name);
+            if(index > -1){
+                state.products.splice(index,1,newItem);
+                //console.log(state.products)
+            }
+        }
     }
 })
 
-export const {addToCart,reset,removeFromCart} = cartSlice.actions;
+export const {addToCart,reset,removeFromCart,incrementQuantity,decrementQuantity} = cartSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCart = (state:RootState)=> state.cart.products;
